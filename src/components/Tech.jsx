@@ -24,22 +24,37 @@ import { SectionWrapper } from "../hoc";
 import { technologies } from "../constants";
 
 
-const TechCategory = ({ title, category }) => (
-  <div className="mb-10">
-    <h2 className="text-[#22223f] text-[24px] font-bold mb-5 text-center">
-      {title}
-    </h2>
-    <div className="flex flex-row flex-wrap justify-center gap-10">
-      {technologies
-        .filter((tech) => tech.category === category)
-        .map((technology) => (
-          <div className="w-28 h-28" key={technology.name}>
-            <BallCanvas icon={technology.icon} />
-          </div>
-        ))}
+import useIsMobile from "../utils/useIsMobile"; // adjust path as needed
+
+const TechCategory = ({ title, category }) => {
+  const isMobile = useIsMobile();
+
+  return (
+    <div className="mb-10">
+      <h2 className="text-[#22223f] text-[24px] font-bold mb-5 text-center">
+        {title}
+      </h2>
+      <div className="flex flex-row flex-wrap justify-center gap-10">
+        {technologies
+          .filter((tech) => tech.category === category)
+          .map((technology) => (
+            <div className="w-28 h-28" key={technology.name}>
+              {isMobile ? (
+                <img
+                  src={technology.icon}
+                  alt={technology.name}
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <BallCanvas icon={technology.icon} />
+              )}
+            </div>
+          ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
+
 
 const Tech = () => {
   return (
