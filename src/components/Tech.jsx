@@ -18,11 +18,11 @@
 
 // export default SectionWrapper(Tech, "");
 
-import React from "react";
+
 import { BallCanvas } from "./canvas";
 import { SectionWrapper } from "../hoc";
 import { technologies } from "../constants";
-import StarsCanvas from "./canvas/Stars"; // import stars
+
 
 const TechCategory = ({ title, category }) => (
   <div className="mb-10">

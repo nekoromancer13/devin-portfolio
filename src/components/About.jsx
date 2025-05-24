@@ -1,7 +1,5 @@
-import React from "react";
 import { Tilt } from "react-tilt";
 import { motion } from "framer-motion";
-import StarsCanvas from "./canvas/Stars";
 
 import { styles } from "../styles";
 import { services } from "../constants";

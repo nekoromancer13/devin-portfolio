@@ -265,10 +265,7 @@ const Contact = () => {
           variants={slideIn("right", "tween", 0.2, 1)}
           className="relative xl:flex-1 flex flex-col justify-center items-center gap-8 bg-[#2b2b38] p-8 rounded-2xl shadow-lg overflow-hidden"
         >
-          {/* Background StarsCanvas */}
-          <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
-            <StarsCanvas />
-          </div>
+
 
           {/* Foreground Content */}
           <div className="relative z-10 flex flex-col items-center">

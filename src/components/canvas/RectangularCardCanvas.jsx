@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useState } from "react";
+import React, { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { RoundedBox, OrbitControls, Preload, useTexture } from "@react-three/drei";
 import * as THREE from "three";
@@ -10,17 +10,25 @@ const RotatingCard = ({ imgUrl, bgColor }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [startMouse, setStartMouse] = useState({ x: 0, y: 0 });
   const dragRotation = useRef({ x: 0, y: 0 });
-
   const maxTilt = 0.2; // ~17 degrees
   const timeRef = useRef(0);
 
   useFrame((state, delta) => {
-    if (!isDragging) {
+    if (!isDragging && cardRef.current) {
       timeRef.current += delta;
       cardRef.current.rotation.y = Math.sin(timeRef.current * 0.6) * maxTilt;
       cardRef.current.rotation.x = Math.cos(timeRef.current) * maxTilt * 0.3;
     }
   });
+
+  useEffect(() => {
+    // Cleanup texture on unmount to prevent memory leaks / context loss
+    return () => {
+      if (texture) {
+        texture.dispose();
+      }
+    };
+  }, [texture]);
 
   const handlePointerDown = (event) => {
     setIsDragging(true);
@@ -64,9 +72,8 @@ const RotatingCard = ({ imgUrl, bgColor }) => {
       </RoundedBox>
 
       <mesh position={[0, 0, 0.31]}>
-        {!isNaN(4.2) && !isNaN(6.2) && (
-          <planeGeometry args={[4.2, 6.2]} />
-        )}
+        {/* Removed NaN check since these are constants */}
+        <planeGeometry args={[4.2, 6.2]} />
         <meshBasicMaterial
           map={texture}
           transparent
@@ -76,9 +83,7 @@ const RotatingCard = ({ imgUrl, bgColor }) => {
       </mesh>
 
       <mesh position={[0, 0, -0.31]} rotation={[0, Math.PI, 0]}>
-        {!isNaN(4.2) && !isNaN(6.2) && (
         <planeGeometry args={[4.2, 6.2]} />
-        )}
         <meshBasicMaterial
           map={texture}
           transparent
@@ -102,7 +107,7 @@ const ProfileCardCanvas = ({ icon, bgColor }) => {
       <Canvas
         frameloop="always"
         dpr={[1, 2]}
-        gl={{ preserveDrawingBuffer: true, alpha: true }}
+        gl={{ alpha: true }} // Removed preserveDrawingBuffer for stability
         style={{ background: "transparent" }}
       >
         <Suspense fallback={<CanvasLoader />}>
@@ -118,3 +123,5 @@ const ProfileCardCanvas = ({ icon, bgColor }) => {
 };
 
 export default ProfileCardCanvas;
+
+

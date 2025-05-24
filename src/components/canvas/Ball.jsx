@@ -98,6 +98,11 @@ import CanvasLoader from "../Loader";
 const Ball = ({ imgUrl }) => {
   const [decal] = useTexture([imgUrl]);
 
+  if (!decal || !imgUrl) {
+    console.warn("Missing decal texture for", imgUrl);
+    return null;
+  }
+
   return (
     <Float speed={1.5} rotationIntensity={1.2} floatIntensity={1.8}>
       <ambientLight intensity={0.6} />
@@ -105,26 +110,31 @@ const Ball = ({ imgUrl }) => {
       <pointLight position={[-5, -5, -5]} intensity={0.6} />
 
       <mesh castShadow receiveShadow scale={2.75}>
-        <icosahedronGeometry args={[1, 8]} /> {/* smoother shape */}
+        <icosahedronGeometry args={[1, 8]} />
         <meshPhysicalMaterial
-          color="#ffffff"                 // soft white
-          roughness={0.2}                 // shiny surface
+          color="#ffffff"
+          roughness={0.2}
           metalness={0.1}
           reflectivity={0.6}
           clearcoat={0.8}
           clearcoatRoughness={0.1}
         />
-        <Decal
-          position={[0, 0, 1]}
-          rotation={[Math.PI * 2, 0, 6.25]}
-          scale={1}
-          map={decal}
-          anisotropy={8}
-        />
+        {decal && (
+          <Decal
+            position={[0, 0, 1]}
+            rotation={[Math.PI * 2, 0, 6.25]}
+            scale={1}
+            map={decal}
+            anisotropy={8}
+          />
+        )}
       </mesh>
     </Float>
   );
 };
+
+
+
 
 
 const BallCanvas = ({ icon }) => {
@@ -145,3 +155,4 @@ const BallCanvas = ({ icon }) => {
 };
 
 export default BallCanvas;
+

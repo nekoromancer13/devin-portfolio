@@ -17,7 +17,7 @@ const ProjectCard = ({
   tags,
   images,
   source_code_link,
-  icon, // ← new prop
+  icon, // still used but now just as image
 }) => {
   return (
     <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
@@ -41,6 +41,7 @@ const ProjectCard = ({
               className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"
               title="View Source"
             >
+              {/* icon is now a regular image, not a canvas */}
               <img
                 src={icon}
                 alt="source icon"
@@ -77,6 +78,7 @@ const ProjectCard = ({
     </motion.div>
   );
 };
+
 
 // export default ProjectCard;
 

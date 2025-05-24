@@ -1,5 +1,4 @@
-import React from "react";
-import { About, Contact, Hero, Navbar, Tech, StarsCanvas } from "../components";
+import { About, Contact, Hero, Navbar, Tech} from "../components";
 
 const Home = () => {
   return (

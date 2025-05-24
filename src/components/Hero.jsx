@@ -160,7 +160,6 @@
 
 // export default Hero;
 
-import React from "react";
 import { motion } from "framer-motion";
 import { styles } from "../styles";
 import RectangularCardCanvas from "./canvas/RectangularCardCanvas"; // 3D card
