@@ -22,7 +22,6 @@ const RotatingCard = ({ imgUrl, bgColor }) => {
   });
 
   useEffect(() => {
-    // Cleanup texture on unmount to prevent memory leaks / context loss
     return () => {
       if (texture) {
         texture.dispose();
@@ -72,7 +71,6 @@ const RotatingCard = ({ imgUrl, bgColor }) => {
       </RoundedBox>
 
       <mesh position={[0, 0, 0.31]}>
-        {/* Removed NaN check since these are constants */}
         <planeGeometry args={[4.2, 6.2]} />
         <meshBasicMaterial
           map={texture}
@@ -96,6 +94,26 @@ const RotatingCard = ({ imgUrl, bgColor }) => {
 };
 
 const ProfileCardCanvas = ({ icon, bgColor }) => {
+  const rendererRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      // Clean up WebGL renderer on unmount
+      if (rendererRef.current) {
+        try {
+          rendererRef.current.dispose();
+          const canvas = rendererRef.current.domElement;
+          const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
+          if (gl && gl.getExtension("WEBGL_lose_context")) {
+            gl.getExtension("WEBGL_lose_context").loseContext();
+          }
+        } catch (error) {
+          console.warn("Error disposing renderer:", error);
+        }
+      }
+    };
+  }, []);
+
   return (
     <div
       className="rounded-[20px] p-2 w-full h-full"
@@ -107,8 +125,11 @@ const ProfileCardCanvas = ({ icon, bgColor }) => {
       <Canvas
         frameloop="always"
         dpr={[1, 2]}
-        gl={{ alpha: true }} // Removed preserveDrawingBuffer for stability
+        gl={{ alpha: true }}
         style={{ background: "transparent" }}
+        onCreated={({ gl }) => {
+          rendererRef.current = gl;
+        }}
       >
         <Suspense fallback={<CanvasLoader />}>
           <ambientLight intensity={1} />
@@ -123,5 +144,3 @@ const ProfileCardCanvas = ({ icon, bgColor }) => {
 };
 
 export default ProfileCardCanvas;
-
-

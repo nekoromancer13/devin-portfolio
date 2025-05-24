@@ -83,8 +83,8 @@
 // export default BallCanvas;
 
 
-import React, { Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
+import React, { Suspense, useEffect, useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 import {
   Decal,
   Float,
@@ -92,16 +92,19 @@ import {
   Preload,
   useTexture,
 } from "@react-three/drei";
-
+import * as THREE from "three";
 import CanvasLoader from "../Loader";
 
 const Ball = ({ imgUrl }) => {
   const [decal] = useTexture([imgUrl]);
+  const meshRef = useRef();
 
-  if (!decal || !imgUrl) {
-    console.warn("Missing decal texture for", imgUrl);
-    return null;
-  }
+  useEffect(() => {
+    return () => {
+      // Dispose the texture on unmount to prevent memory leaks
+      if (decal) decal.dispose();
+    };
+  }, [decal]);
 
   return (
     <Float speed={1.5} rotationIntensity={1.2} floatIntensity={1.8}>
@@ -109,7 +112,7 @@ const Ball = ({ imgUrl }) => {
       <directionalLight position={[5, 5, 5]} intensity={0.8} />
       <pointLight position={[-5, -5, -5]} intensity={0.6} />
 
-      <mesh castShadow receiveShadow scale={2.75}>
+      <mesh castShadow receiveShadow scale={2.75} ref={meshRef}>
         <icosahedronGeometry args={[1, 8]} />
         <meshPhysicalMaterial
           color="#ffffff"
@@ -133,26 +136,28 @@ const Ball = ({ imgUrl }) => {
   );
 };
 
-
-
-
-
 const BallCanvas = ({ icon }) => {
   return (
-    <Canvas
-      frameloop="always"
-      dpr={[1, 1.5]}
-      gl={{ preserveDrawingBuffer: true, antialias: true }}
+    <div
+      className="w-full h-full rounded-full"
+      style={{ background: "transparent" }}
     >
-      <Suspense fallback={<CanvasLoader />}>
-        <OrbitControls enableZoom={false} />
-        <Ball imgUrl={icon} />
-      </Suspense>
-
-      <Preload all />
-    </Canvas>
+      <Canvas
+        frameloop="always"
+        dpr={[1, 1.5]}
+        gl={{ alpha: true }} // Removed preserveDrawingBuffer
+        style={{ background: "transparent" }}
+      >
+        <Suspense fallback={<CanvasLoader />}>
+          <OrbitControls enableZoom={false} />
+          <Ball imgUrl={icon} />
+        </Suspense>
+        <Preload all />
+      </Canvas>
+    </div>
   );
 };
 
 export default BallCanvas;
+
 

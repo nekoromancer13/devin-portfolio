@@ -1,5 +1,6 @@
 import { Tilt } from "react-tilt";
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 import { styles } from "../styles";
 import { services } from "../constants";
@@ -25,14 +26,16 @@ const ServiceCard = ({ index, title, icon }) => (
         </h3>
       </div>
     </motion.div>
-
   </Tilt>
 );
 
 const About = () => {
+  const location = useLocation();
+  const isAboutPage =
+    location.pathname === "/" || location.pathname === "/about";
+
   return (
     <>
-
       <motion.div variants={textVariant()}>
         <p className={styles.sectionSubText}></p>
         <h2 className={styles.sectionHeadText}>Introduction</h2>
@@ -42,17 +45,19 @@ const About = () => {
         variants={fadeIn("", "", 0.1, 1)}
         className="mt-4 text-[#2b2b38] text-[17px] max-w-3xl leading-[30px]"
       >
-      I'm passionate about exploring new things in the tech world. 
-      Adaptable and work independently or in teams. 
-      A dedicated and motivated learner who have many ideas, works diligently, 
-      and is always eager to grow both personally and professionally.
+        I'm passionate about exploring new things in the tech world.
+        Adaptable and work independently or in teams.
+        A dedicated and motivated learner who have many ideas, works diligently,
+        and is always eager to grow both personally and professionally.
       </motion.p>
 
-      <div className="mt-20 flex flex-wrap gap-10">
-        {services.map((service, index) => (
-          <ServiceCard key={service.title} index={index} {...service} />
-        ))}
-      </div>
+      {isAboutPage && (
+        <div className="mt-20 flex flex-wrap gap-10">
+          {services.map((service, index) => (
+            <ServiceCard key={service.title} index={index} {...service} />
+          ))}
+        </div>
+      )}
     </>
   );
 };
