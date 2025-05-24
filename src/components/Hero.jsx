@@ -165,6 +165,9 @@ import { motion } from "framer-motion";
 import { styles } from "../styles";
 import RectangularCardCanvas from "./canvas/RectangularCardCanvas"; // 3D card
 import { slideIn } from "../utils/motion"; // animation helper
+import {
+  ppic,
+} from "../assets"
 
 const Hero = () => {
   return (
@@ -179,7 +182,7 @@ const Hero = () => {
           animate="show"
           className="w-full max-w-[420px] aspect-[5/7.4]"
         >
-          <RectangularCardCanvas icon="/src/assets/ppic.png" bgColor="#DDDAEF" />
+          <RectangularCardCanvas icon={ppic}bgColor="#DDDAEF" />
         </motion.div>
 
         {/* 📝 Text Content with animation */}

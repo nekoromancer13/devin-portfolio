@@ -109,6 +109,7 @@ import { navLinks } from "../constants";
 import { menu, close } from "../assets";
 import { HiMenu, HiX } from "react-icons/hi";
 
+
 const Navbar = () => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);

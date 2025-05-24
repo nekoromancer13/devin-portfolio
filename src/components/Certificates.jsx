@@ -4,21 +4,27 @@ import { fadeIn, textVariant } from "../utils/motion";
 import Tilt from "react-parallax-tilt";
 import { SectionWrapper } from "../hoc";
 import { styles } from "../styles";
+import {
+  nvdia,
+  alibaba,
+  paper1,
+}from "../assets";
+
 
 const certificates = [
   {
     title: "Alibaba Cloud Certification",
-    image: "src/assets/alibaba.png",
+    image: alibaba,
     description: "Completed as Alibaba Cloud Certified Associate",
   },
   {
     title: "NVDIA Certificate of Competency",
-    image: "src/assets/nvidia.png",
+    image: nvdia,
     description: "Completed NVDIA Fundamentals of Deep Learning",
   },
   {
     title: "Portuguese Meals Image Recognition Using CNN Models",
-    image: "src/assets/paper1.png",
+    image: paper1,
     description: "Published research paper by IEEE at 2024 6th International Conference on Cybernetics and Intelligent System (ICORIS)",
   },
   // Add more as needed...

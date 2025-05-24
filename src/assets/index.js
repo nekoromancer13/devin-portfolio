@@ -78,7 +78,11 @@ import only4 from "./only4.png";
 import only5 from "./only5.png";
 import only6 from "./only6.png";
 import only7 from "./only7.png";
-import drive from "./drive.png"
+import drive from "./drive.png";
+import ppic from "./ppic.png";
+import nvdia from "./nvidia.png";
+import alibaba from "./alibaba.png";
+import paper1 from "./paper1.png";
 
 import vnVideo from "./vn_trailer.mp4";
 
@@ -162,4 +166,8 @@ export {
   only6,
   only7,
   drive,
+  alibaba,
+  nvdia,
+  ppic,
+  paper1,
 };
