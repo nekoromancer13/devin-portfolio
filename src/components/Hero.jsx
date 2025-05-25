@@ -198,14 +198,14 @@ const Hero = () => {
             a Computer Science student with a passion for art, design, and creativity.
           </p>
 
-          {/* 🔽 Resume Download Button */}
           <a
-            href="./public/cv_Devin_Jonathan.pdf"
+            href="/cv_Devin_Jonathan.pdf"
             download
             className="inline-block mt-6 px-6 py-3 bg-[#2232a2] text-white text-[16px] font-medium rounded-lg hover:bg-[#0a2a79] transition"
           >
             Download Resume
           </a>
+
         </motion.div>
       </div>
     </section>
