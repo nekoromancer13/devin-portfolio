@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false);
+const useIsMobileOrTablet = () => {
+  const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768); // adjust breakpoint if needed
+    const checkSize = () => {
+      setIsMobileOrTablet(window.innerWidth <= 1024); // mobile + tablet
     };
 
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
+    checkSize();
+    window.addEventListener("resize", checkSize);
 
-    return () => window.removeEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkSize);
   }, []);
 
-  return isMobile;
+  return isMobileOrTablet;
 };
 
-export default useIsMobile;
+export default useIsMobileOrTablet;
