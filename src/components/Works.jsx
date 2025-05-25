@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 import { Link } from "react-router-dom";
@@ -19,6 +20,9 @@ const ProjectCard = ({
   return (
     <motion.div
       variants={fadeIn("up", "spring", index * 0.5, 0.75)}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
       key={`project-${index}`}
     >
       <Tilt
@@ -28,11 +32,14 @@ const ProjectCard = ({
         transitionSpeed={450}
         className="bg-tertiary p-4 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
       >
-        <div className="relative w-full h-[200px]">
+        <div className="relative w-full h-[200px] bg-gray-100 rounded-2xl">
           <img
-            src={images[0]?.src}
+            src={images[0]?.src || "/fallback.jpg"}
             alt={`${name} screenshot`}
             className="w-full h-full object-cover rounded-2xl"
+            onError={(e) => {
+              e.target.src = "/fallback.jpg";
+            }}
           />
           <div className="absolute top-3 right-3 flex gap-2">
             <div
@@ -71,15 +78,27 @@ const ProjectCard = ({
 };
 
 const Works = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0); // ensures top load on mobile
+  }, []);
+
   return (
     <>
-      <motion.div variants={textVariant()}>
+      <motion.div
+        variants={textVariant()}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <p className={`${styles.sectionSubText}`}>My Experiences</p>
         <h2 className={`${styles.sectionHeadText}`}>Projects</h2>
       </motion.div>
 
       <motion.p
         variants={fadeIn("", "", 0.1, 1)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
         className="mt-3 text-[#2b2b38] text-[17px] max-w-3xl leading-[30px]"
       >
         Below are some of the projects I worked on during my college years. Each
@@ -88,7 +107,6 @@ const Works = () => {
         problems and use various software and technology effectively.
       </motion.p>
 
-      {/* Grid layout for cards, similar to certificates */}
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
         {projects.map((project, index) => (
           <ProjectCard key={`project-${index}`} index={index} {...project} />
@@ -99,6 +117,8 @@ const Works = () => {
 };
 
 export default SectionWrapper(Works, "");
+
+
 
 
 

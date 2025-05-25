@@ -1,15 +1,10 @@
-
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { fadeIn, textVariant } from "../utils/motion";
 import Tilt from "react-parallax-tilt";
 import { SectionWrapper } from "../hoc";
 import { styles } from "../styles";
-import {
-  nvdia,
-  alibaba,
-  paper1,
-}from "../assets";
-
+import { nvdia, alibaba, paper1 } from "../assets";
 
 const certificates = [
   {
@@ -25,24 +20,36 @@ const certificates = [
   {
     title: "Portuguese Meals Image Recognition Using CNN Models",
     image: paper1,
-    description: "Published research paper by IEEE at 2024 6th International Conference on Cybernetics and Intelligent System (ICORIS)",
+    description:
+      "Published research paper by IEEE at 2024 6th International Conference on Cybernetics and Intelligent System (ICORIS)",
   },
-  // Add more as needed...
 ];
 
 const Certificates = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0); // Ensure top of page on mobile
+  }, []);
+
   return (
     <>
-      <motion.div variants={textVariant()}>
+      <motion.div
+        variants={textVariant()}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <p className={`${styles.sectionSubText}`}>My Achievements</p>
         <h2 className={`${styles.sectionHeadText}`}>Certificates</h2>
       </motion.div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
         {certificates.map((cert, index) => (
           <motion.div
             key={index}
             variants={fadeIn("up", "spring", index * 0.5, 0.75)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
           >
             <Tilt
               tiltMaxAngleX={10}
