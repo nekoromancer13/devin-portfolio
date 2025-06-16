@@ -83,6 +83,13 @@ import ppic from "./ppic.png";
 import nvdia from "./nvidia.png";
 import alibaba from "./alibaba.png";
 import paper1 from "./paper1.png";
+import port1 from "./port1.png";
+import port2 from "./port2.png";
+import port3 from "./port3.png";
+import port4 from "./port4.png";
+import port5 from "./port5.png";
+import port6 from "./port6.png";
+import port7 from "./port7.png";
 
 import vnVideo from "./vn_trailer.mp4";
 
@@ -170,4 +177,11 @@ export {
   nvdia,
   ppic,
   paper1,
+  port1,
+  port2,
+  port3,
+  port4,
+  port5,
+  port6,
+  port7,
 };

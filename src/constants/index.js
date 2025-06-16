@@ -76,6 +76,13 @@ import {
   only7,
   github,
   drive,
+  port1,
+  port2,
+  port3,
+  port4,
+  port5,
+  port6,
+  port7,
 } from "../assets";
 import { path } from "framer-motion/client";
 
@@ -615,6 +622,49 @@ const projects = [
     source_code_link:
       "https://www.figma.com/design/f5nciqYuSkmvyzsoWBdmFf/Entrepreneur?node-id=0-1&t=rBszpAIfqWkBFZfm-1",
     icon: figma,
+  },
+  {
+    name: "Web Portfolio",
+    description: "An individual website for my portfolio",
+    tags: [
+      {
+        name: "solo-project",
+        color: "green-text-gradient",
+      },
+    ],
+    images: [
+      {
+        src: port1,
+        caption:
+          "Main page of the portfolio, with moveable image with react and clickable button to download the resume",
+      },
+      {
+        src: port2,
+        caption: "Some reactjs 3D for skills that I already learned",
+      },
+      {
+        src: port3,
+        caption: "Contact page, its linked with using an API from emailJS",
+      },
+      {
+        src: port4,
+        caption:
+          "Experiences page, filled with my projects with detail button and source",
+      },
+      {
+        src: port5,
+        caption:
+          "When detail button clicked, will shows all the information about the project",
+      },
+      { src: port6, caption: "Certificates page, showing my achievements" },
+      {
+        src: port7,
+        caption:
+          "It is also responsive on multiple type of device, such as mobile phone, tablets, and desktop",
+      },
+    ],
+    source_code_link: "https://github.com/nekoromancer13/devin-portfolio",
+    icon: github,
   },
 ];
 
